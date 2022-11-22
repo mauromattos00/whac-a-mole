@@ -8,6 +8,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
+import { GameFacadeService } from '@store/facades/game-facade.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -21,7 +23,7 @@ import { AppComponent } from './app.component';
       logOnly: environment.production,
     }),
   ],
-  providers: [],
+  providers: [GameFacadeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
