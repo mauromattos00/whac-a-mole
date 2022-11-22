@@ -1,6 +1,9 @@
 import {
+  delay,
+  tap,
   filter,
   map,
+  take,
   scan,
   takeWhile,
   startWith,
@@ -48,6 +51,17 @@ export class GameFacadeService {
     this.store.dispatch(gameActions.hideAllMoles());
   }
 
+
+  setMolesDuration() {
+    const duration = Randomization.generateMoleDuration();
+    of(duration).pipe(
+      delay(duration),
+      tap(() => {
+        this.checkRemainingMoles();
+        this.hideAllMoles();
+      })
+    ).subscribe();
+  }
 
   addToScore(points: number) {
     this.store.dispatch(gameActions.addToScore({ points }));
