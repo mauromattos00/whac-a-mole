@@ -32,6 +32,19 @@
   padding: 6rem 0;
 }
 
+.hole {
+  height: 80px;
+  width: 80px;
+  border: 1px solid black;
+  border-radius: 50%;
+  justify-self: center;
+  cursor: crosshair;
+
+  &--active {
+    background-color: black;
+  }
+}
+
 .time-left {
   display: flex;
   justify-content: flex-end;

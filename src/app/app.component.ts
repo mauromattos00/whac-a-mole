@@ -24,6 +24,18 @@ export class AppComponent implements OnInit {
     this.gameFacadeService.startGame();
   }
 
+  tapMole(index: number) {
+    this.activeHoles$.pipe(
+      take(1),
+      map((holes: number[]) => {
+        if (holes.includes(index)) {
+          this.gameFacadeService.addToScore(1);
+          this.gameFacadeService.hideMole(index);
+        }
+      })
+    ).subscribe();
+  }
+
   private getStoreData() {
     this.activeHoles$ = this.gameFacadeService.activeHoles$;
     this.currentScore$ = this.gameFacadeService.currentScore$;

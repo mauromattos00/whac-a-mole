@@ -19,6 +19,12 @@
   </section>
 
   <div class="board" *ngIf="(isGameInProgress$ | async) === true">
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(1) }" (click)="tapMole(1)"></div>
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(2) }" (click)="tapMole(2)"></div>
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(3) }" (click)="tapMole(3)"></div>
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(4) }" (click)="tapMole(4)"></div>
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(5) }" (click)="tapMole(5)"></div>
+    <div class="hole" [ngClass]="{'hole--active': (activeHoles$ | async)?.includes(6) }" (click)="tapMole(6)"></div>
   </div>
   <span
     *ngIf="(isGameInProgress$ | async) === true"
