@@ -75,6 +75,17 @@ export class GameFacadeService {
     this.store.dispatch(gameActions.resetScore());
   }
 
+  checkRemainingMoles() {
+    this.activeHoles$.pipe(
+      take(1),
+      map((holes: number[]) => holes.length),
+    ).subscribe((pointsToRemove: number) => {
+      if (pointsToRemove > 0) {
+        this.removeFromScore(pointsToRemove);
+      }
+    });
+  }
+
   startTimer() {
     interval(1000).pipe(
       scan((acc: number) => acc - 1, 30),
