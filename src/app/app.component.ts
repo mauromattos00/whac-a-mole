@@ -12,13 +12,16 @@ export class AppComponent implements OnInit {
   currentScore$: Observable<number> = of(0);
   highestScore$: Observable<number> = of(0);
   isGameInProgress$: Observable<boolean> = of(false);
-export class AppComponent {
-  title = 'whac-a-mole';
+  timer$: Observable<number> = of(0);
 
   constructor(private gameFacadeService: GameFacadeService) { }
 
   ngOnInit() {
     this.getStoreData();
+  }
+
+  startGame() {
+    this.gameFacadeService.startGame();
   }
 
   private getStoreData() {
