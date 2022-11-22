@@ -11,13 +11,14 @@ import { AppComponent } from './app.component';
 import { gameReducer, gameFeatureKey } from '@store/reducers/game.reducer';
 
 import { GameFacadeService } from '@store/facades/game-facade.service';
+import { GameEffects } from './store/effects/game.effects';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     StoreModule.forRoot({[gameFeatureKey]: gameReducer}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([GameEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
