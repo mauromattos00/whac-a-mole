@@ -71,6 +71,21 @@ export class GameFacadeService {
     this.store.dispatch(gameActions.finishGame());
   }
 
+  checkHighestScore() {
+    combineLatest([
+      this.currentScore$,
+      this.highestScore$,
+    ])
+      .pipe(take(1))
+      .subscribe(([score, highestScore]) => {
+        if (highestScore >= score) {
+          return;
+        }
+
+        this.setNewHighestScore(score);
+      });
+  }
+
   resetScore() {
     this.store.dispatch(gameActions.resetScore());
   }
