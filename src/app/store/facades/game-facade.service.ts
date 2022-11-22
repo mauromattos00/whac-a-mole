@@ -1,7 +1,16 @@
+import {
+  filter,
+  map,
+  scan,
+  takeWhile,
+  startWith,
+} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { BehaviorSubject, combineLatest, interval, of } from 'rxjs';
 import * as gameActions from '@store/actions/game.actions';
 import * as gameSelectors from '@store/selectors/game.selectors';
+import { Randomization } from '../../utils/randomization';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +20,9 @@ export class GameFacadeService {
   currentScore$ = this.store.select(gameSelectors.selectCurrentScore);
   highestScore$ = this.store.select(gameSelectors.selectHighestScore);
   activeHoles$ = this.store.select(gameSelectors.selectActiveHoles);
+
+  private _timerSubject = new BehaviorSubject<number>(0);
+  timer$ = this._timerSubject.asObservable();
 
   constructor(private store: Store) { }
 
@@ -47,6 +59,15 @@ export class GameFacadeService {
 
   resetScore() {
     this.store.dispatch(gameActions.resetScore());
+  }
+
+  startTimer() {
+    interval(1000).pipe(
+      scan((acc: number) => acc - 1, 30),
+      takeWhile((time: number) => time >= 0),
+      startWith(30),
+      map((time: number) => this._timerSubject.next(time)),
+    ).subscribe();
   }
 
   private removeFromScore(points: number) {
