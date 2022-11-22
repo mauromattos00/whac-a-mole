@@ -23,6 +23,21 @@ export const gameReducer = createReducer(
     ...state,
     inProgress: true,
   })),
+  on(gameActions.showMoles, (state: GameState, { holes }) => ({
+    ...state,
+    activeHoles: holes,
+  })),
+  on(gameActions.hideMole, (state: GameState, { hole }) => {
+    const holes = [...state.activeHoles].filter(item => item !== hole);
+    return {
+      ...state,
+      activeHoles: holes,
+    };
+  }),
+  on(gameActions.hideAllMoles, (state: GameState) => ({
+    ...state,
+    activeHoles: [],
+  })),
   on(gameActions.addToScore, (state: GameState, { points }) => ({
     ...state,
     currentScore: state.currentScore + points,

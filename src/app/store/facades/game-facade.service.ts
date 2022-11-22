@@ -18,6 +18,25 @@ export class GameFacadeService {
     this.store.dispatch(gameActions.startGame());
   }
 
+  showMoles() {
+    this.isGameInProgress$.pipe(
+      filter((value) => !!value),
+      take(1),
+    ).subscribe(() => {
+      const holes = Randomization.generateNewHoles();
+      this.store.dispatch(gameActions.showMoles({ holes }));
+    });
+  }
+
+  hideMole(hole: number) {
+    this.store.dispatch(gameActions.hideMole({ hole }));
+  }
+
+  hideAllMoles() {
+    this.store.dispatch(gameActions.hideAllMoles());
+  }
+
+
   addToScore(points: number) {
     this.store.dispatch(gameActions.addToScore({ points }));
   }
@@ -33,6 +52,7 @@ export class GameFacadeService {
   private removeFromScore(points: number) {
     this.store.dispatch(gameActions.removeFromScore({ points }));
   }
+
   private setNewHighestScore(score: number) {
     this.store.dispatch(gameActions.setNewHighestScore({ score }));
   }
