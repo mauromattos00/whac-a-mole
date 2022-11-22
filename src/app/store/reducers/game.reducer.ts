@@ -23,9 +23,25 @@ export const gameReducer = createReducer(
     ...state,
     inProgress: true,
   })),
+  on(gameActions.addToScore, (state: GameState, { points }) => ({
+    ...state,
+    currentScore: state.currentScore + points,
+  })),
   on(gameActions.finishGame, (state: GameState) => ({
     ...state,
     inProgress: false,
     activeHoles: [],
+  })),
+  on(gameActions.setNewHighestScore, (state: GameState, { score }) => ({
+    ...state,
+    highestScore: score,
+  })),
+  on(gameActions.resetScore, (state: GameState) => ({
+    ...state,
+    currentScore: 0,
+  })),
+  on(gameActions.removeFromScore, (state: GameState, { points }) => ({
+    ...state,
+    currentScore: state.currentScore - points,
   })),
 );

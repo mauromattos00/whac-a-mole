@@ -18,8 +18,22 @@ export class GameFacadeService {
     this.store.dispatch(gameActions.startGame());
   }
 
+  addToScore(points: number) {
+    this.store.dispatch(gameActions.addToScore({ points }));
+  }
+
   finishGame() {
     this.store.dispatch(gameActions.finishGame());
   }
 
+  resetScore() {
+    this.store.dispatch(gameActions.resetScore());
+  }
+
+  private removeFromScore(points: number) {
+    this.store.dispatch(gameActions.removeFromScore({ points }));
+  }
+  private setNewHighestScore(score: number) {
+    this.store.dispatch(gameActions.setNewHighestScore({ score }));
+  }
 }
